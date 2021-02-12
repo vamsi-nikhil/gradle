@@ -36,6 +36,7 @@ class GradleRunnerConventionalPluginClasspathInjectionEndUserIntegrationTest ext
                 testImplementation('org.spockframework:spock-core:2.0-M4-groovy-3.0') {
                     exclude module: 'groovy-all'
                 }
+                testImplementation 'junit:junit:4.13.1'
             }
         """
 
