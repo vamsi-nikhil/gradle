@@ -42,7 +42,7 @@ class GroovyCoverage {
             SUPPORTED_BY_JDK = allVersions
         }
 
-        SUPPORTS_GROOVYDOC = versionsAbove(SUPPORTED_BY_JDK, "1.6.9")
+        SUPPORTS_GROOVYDOC = versionsAbove(SUPPORTED_BY_JDK, "3.0.7")
         SUPPORTS_TIMESTAMP = versionsAbove(SUPPORTED_BY_JDK, "2.4.6")
         SUPPORTS_PARAMETERS = versionsAbove(SUPPORTED_BY_JDK, "2.5.0")
     }
