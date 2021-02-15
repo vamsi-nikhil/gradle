@@ -22,7 +22,6 @@ import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
 import org.gradle.profiler.BuildContext;
-import org.gradle.profiler.mutations.AbstractJavaSourceFileMutator;
 
 import java.io.File;
 import java.util.List;
