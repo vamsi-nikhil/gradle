@@ -38,7 +38,7 @@ class GradleRunnerMiscEndUserIntegrationTest extends BaseTestKitEndUserIntegrati
                 testImplementation('org.spockframework:spock-core:2.0-M4-groovy-3.0') {
                     exclude module: 'groovy-all'
                 }
-                testImplementation 'junit:junit:4.13.1'
+                testImplementation('org.junit.jupiter:junit-jupiter-api')
             }
 
             ${mavenCentralRepository()}
@@ -69,6 +69,10 @@ class GradleRunnerMiscEndUserIntegrationTest extends BaseTestKitEndUserIntegrati
         buildFile << """
             dependencies {
                 testImplementation fileTree(dir: 'jars', include: '*.jar')
+            }
+
+            test {
+                useJUnitPlatform()
             }
         """
 
@@ -107,6 +111,8 @@ class GradleRunnerMiscEndUserIntegrationTest extends BaseTestKitEndUserIntegrati
                 testLogging {
                     events 'started'
                 }
+
+                useJUnitPlatform()
             }
         """
 
@@ -150,22 +156,23 @@ class GradleRunnerMiscEndUserIntegrationTest extends BaseTestKitEndUserIntegrati
     static String successfulSpockTest(String className) {
         """
             import org.gradle.testkit.runner.GradleRunner
+            import java.nio.file.Files
+            import java.nio.file.Path
             import static org.gradle.testkit.runner.TaskOutcome.*
-            import org.junit.Rule
-            import org.junit.rules.TemporaryFolder
             import spock.lang.Specification
 
             class $className extends Specification {
-                @Rule TemporaryFolder testProjectDir = new TemporaryFolder()
+                File testProjectDir = Files.createTempDirectory("GradleRunnerMiscEndUserIntegrationTest").toFile()
                 File buildFile
                 File settingsFile
 
                 def setup() {
-                    settingsFile = testProjectDir.newFile('settings.gradle')
-                    buildFile = testProjectDir.newFile('build.gradle')
+                    testProjectDir.deleteOnExit()
                 }
 
                 def "execute helloWorld task"() {
+                    settingsFile = new File(testProjectDir, 'settings.gradle')
+                    buildFile = new File(testProjectDir, 'build.gradle')
                     given:
                     settingsFile << "rootProject.name = 'hello-world'"
                     buildFile << '''
@@ -178,7 +185,7 @@ class GradleRunnerMiscEndUserIntegrationTest extends BaseTestKitEndUserIntegrati
 
                     when:
                     def result = GradleRunner.create()
-                        .withProjectDir(testProjectDir.root)
+                        .withProjectDir(testProjectDir)
                         .withArguments('helloWorld')
                         .withDebug($debug)
                         .build()
