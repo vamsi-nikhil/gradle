@@ -20,14 +20,11 @@ import org.gradle.integtests.fixtures.DefaultTestExecutionResult
 import org.gradle.integtests.fixtures.TargetCoverage
 import org.gradle.integtests.fixtures.ToBeFixedForConfigurationCache
 import org.gradle.testing.fixture.JUnitMultiVersionIntegrationSpec
-import spock.lang.Ignore
 import spock.lang.Issue
 
-import static org.gradle.testing.fixture.JUnitCoverage.JUNIT_4_LATEST
-import static org.gradle.testing.fixture.JUnitCoverage.JUNIT_VINTAGE
+import static org.gradle.testing.fixture.JUnitCoverage.JUPITER
 
-@Ignore("TODO: BM Part of groovy 3 upgrade")
-@TargetCoverage({ JUNIT_4_LATEST + JUNIT_VINTAGE })
+@TargetCoverage({ [JUPITER] })
 class BuildSrcSpockIntegrationTest extends JUnitMultiVersionIntegrationSpec {
     def "can run spock tests with mock of class using gradleApi"() {
         file("build.gradle") << """
@@ -91,7 +88,7 @@ class TestSpec extends Specification {
             ${mavenCentralRepository()}
 
 dependencies {
-    testImplementation 'org.codehaus.groovy:groovy:3.0.7'
+    testImplementation localGroovy()
     testImplementation '$dependencyNotation', 'org.spockframework:spock-core:2.0-M4-groovy-3.0@jar'
 }
 """
