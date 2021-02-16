@@ -24,9 +24,7 @@ import org.gradle.internal.jvm.JavaInfo
 import org.gradle.test.fixtures.file.ClassFile
 import org.gradle.util.TextUtil
 import org.junit.Assume
-import spock.lang.Ignore
 
-@Ignore("TODO: BM Part of groovy 3 upgrade")
 @TargetVersions(["1.6", "1.7", "1.8"])
 class GroovyCrossCompilationIntegrationTest extends MultiVersionIntegrationSpec {
     JavaVersion getJavaVersion() {
@@ -83,7 +81,7 @@ class GroovyThing { }
     def "can compile source and run JUnit tests using target Java version"() {
         given:
         buildFile << """
-dependencies { testImplementation 'org.spockframework:spock-core:2.0-M4-groovy-3.0' }
+dependencies { testImplementation 'org.spockframework:spock-core:1.0-groovy-2.4' }
 """
 
         file("src/test/groovy/ThingSpec.groovy") << """
