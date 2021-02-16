@@ -24,6 +24,7 @@ dependencies {
     testImplementation(testFixtures(project(":core")))
     testImplementation(testFixtures(project(":core-api")))
     testImplementation(testFixtures(project(":model-core")))
+    testImplementation(libs.groovyDateUtil)
 
     testFixturesImplementation(project(":base-services"))
     testFixturesImplementation(project(":core-api"))
