@@ -98,7 +98,7 @@ class BuildSrcApiChangePerformanceTest extends AbstractCrossVersionPerformanceTe
             runner.gradleOpts.addAll(['-XX:+UnlockExperimentalVMOptions', '-XX:+UseG1GC'])
         }
         runner.args += "-Dgroovy.parallel.parse=true"
-//        -Dgroovy.antlr4.cache.threshold=50000
+        runner.args += "-Dgroovy.antlr4.cache.threshold=50000"
     }
 
     private static class CreateChangingClassMutator implements BuildMutator {
